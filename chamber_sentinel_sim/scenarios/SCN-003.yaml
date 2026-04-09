@@ -1,0 +1,47 @@
+name: SCN-003-consent-revocation
+description: "Patient shares data with App A for 15 days, then revokes. Burn propagation through App A and sub-processor."
+duration_days: 30
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Adult T1D"
+    age: 30
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 42
+
+third_party_apps:
+  - name: app_fitness
+    app_type: fitness
+    port: 9001
+    compliance: compliant
+    has_sub_processor: true
+
+events:
+  - sim_time_minutes: 0
+    event_type: consent_grant
+    target_patient: P001
+    params:
+      app_name: app_fitness
+
+  - sim_time_minutes: 21600  # day 15
+    event_type: consent_revoke
+    target_patient: P001
+    params:
+      app_name: app_fitness
+
+burn_schedule:
+  clinical_review_minutes: 129600
+  device_maintenance_minutes: 14400
+  third_party_sla_minutes: 4320
+
+assertions:
+  - burn_completeness
+  - portable_record_completeness
+  - no_data_resurrection
+  - audit_chain_integrity

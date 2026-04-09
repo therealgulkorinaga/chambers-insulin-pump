@@ -1,0 +1,29 @@
+name: SCN-006-offline-period
+description: "Patient offline for 48 hours. Data accumulates on phone, batch upload on reconnect."
+duration_days: 14
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Offline Patient"
+    age: 29
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 42
+
+events:
+  - sim_time_minutes: 7200   # day 5
+    event_type: offline_start
+    target_patient: P001
+  - sim_time_minutes: 10080  # day 7
+    event_type: offline_end
+    target_patient: P001
+
+assertions:
+  - portable_record_completeness
+  - audit_chain_integrity
+  - no_data_resurrection

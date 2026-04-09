@@ -1,0 +1,17 @@
+[
+  {
+    "name": "portable_record_completeness",
+    "passed": true,
+    "details": "patients=1, total_items=16110"
+  },
+  {
+    "name": "audit_chain_integrity",
+    "passed": true,
+    "details": "entries=3497, chain_valid=True"
+  },
+  {
+    "name": "no_data_resurrection",
+    "passed": true,
+    "details": "burned_items=0, resurrections=0"
+  }
+]

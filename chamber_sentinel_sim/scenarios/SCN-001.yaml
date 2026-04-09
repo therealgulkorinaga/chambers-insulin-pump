@@ -1,0 +1,38 @@
+name: SCN-001-happy-path
+description: "Single patient, 90 days, normal CGM+pump, reports generated, raw data burned on schedule, portable record receives all data"
+duration_days: 90
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Adult T1D Well-Controlled"
+    age: 35
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    target_low: 70
+    target_high: 180
+    insulin_sensitivity: 50
+    carb_ratio: 10
+    basal_rate: 1.0
+    meals_per_day: 3
+    seed: 42
+
+burn_schedule:
+  clinical_review_minutes: 129600   # 90 days
+  device_maintenance_minutes: 14400 # 10 days (sensor wear)
+  research_minutes: 525600          # 365 days
+  third_party_sla_minutes: 4320     # 72 hours
+  emergency_burn_minutes: 60
+
+assertions:
+  - burn_completeness
+  - portable_record_completeness
+  - no_data_resurrection
+  - world_isolation
+  - audit_chain_integrity
+  - timing
+  - report_delivery

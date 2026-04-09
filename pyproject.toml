@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "chamber-sentinel-sim"
+version = "0.1.0"
+description = "Local simulation environment for the Chamber Sentinel insulin pump/CGM data sovereignty framework"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "flask>=3.0",
+    "pyyaml>=6.0",
+    "cryptography>=41.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov"]
+
+[project.scripts]
+chamber-sim = "chamber_sentinel_sim.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["chamber_sentinel_sim*"]

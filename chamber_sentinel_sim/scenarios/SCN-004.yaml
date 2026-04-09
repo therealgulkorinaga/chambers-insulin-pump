@@ -1,0 +1,39 @@
+name: SCN-004-non-compliant-app
+description: "Patient revokes consent, App A refuses to burn. Escalation path exercised."
+duration_days: 30
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Adult T1D"
+    age: 33
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 42
+
+third_party_apps:
+  - name: app_bad
+    app_type: fitness
+    port: 9001
+    compliance: non_compliant
+    has_sub_processor: false
+
+events:
+  - sim_time_minutes: 0
+    event_type: consent_grant
+    target_patient: P001
+    params:
+      app_name: app_bad
+  - sim_time_minutes: 21600  # day 15
+    event_type: consent_revoke
+    target_patient: P001
+    params:
+      app_name: app_bad
+
+assertions:
+  - audit_chain_integrity
+  - no_data_resurrection

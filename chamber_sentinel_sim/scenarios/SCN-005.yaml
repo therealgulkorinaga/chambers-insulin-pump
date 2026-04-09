@@ -1,0 +1,34 @@
+name: SCN-005-portable-record-loss
+description: "Patient's portable record lost at day 30, relay queues data (no burn), recovery at day 35, re-delivery"
+duration_days: 60
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Adult T1D"
+    age: 40
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 42
+
+events:
+  - sim_time_minutes: 43200  # day 30
+    event_type: portable_record_loss
+    target_patient: P001
+
+  - sim_time_minutes: 50400  # day 35
+    event_type: portable_record_recovery
+    target_patient: P001
+
+burn_schedule:
+  clinical_review_minutes: 129600
+  device_maintenance_minutes: 14400
+
+assertions:
+  - portable_record_completeness
+  - no_data_resurrection
+  - audit_chain_integrity

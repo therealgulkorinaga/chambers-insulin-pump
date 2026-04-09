@@ -1,0 +1,17 @@
+[
+  {
+    "name": "burn_completeness",
+    "passed": true,
+    "details": "burn_eligible=0, burn_complete=7216, remaining_in_relay=2910"
+  },
+  {
+    "name": "no_data_resurrection",
+    "passed": true,
+    "details": "burned_items=0, resurrections=0"
+  },
+  {
+    "name": "audit_chain_integrity",
+    "passed": true,
+    "details": "entries=22298, chain_valid=True"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "burn_completeness",
+    "passed": true,
+    "details": "burn_eligible=15, burn_complete=15, remaining_in_relay=130813"
+  },
+  {
+    "name": "portable_record_completeness",
+    "passed": true,
+    "details": "patients=1, total_items=105024"
+  },
+  {
+    "name": "no_data_resurrection",
+    "passed": true,
+    "details": "burned_items=0, resurrections=0"
+  },
+  {
+    "name": "world_isolation",
+    "passed": true,
+    "details": "total_classifications=0, violations=0"
+  },
+  {
+    "name": "audit_chain_integrity",
+    "passed": true,
+    "details": "entries=26223, chain_valid=True"
+  },
+  {
+    "name": "timing",
+    "passed": true,
+    "details": "No burns to check timing"
+  },
+  {
+    "name": "report_delivery",
+    "passed": true,
+    "details": "generated=6, delivered=6"
+  }
+]

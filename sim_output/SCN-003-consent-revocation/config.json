@@ -1,0 +1,5 @@
+{
+  "name": "SCN-003-consent-revocation",
+  "duration_days": 30,
+  "seed": 42
+}

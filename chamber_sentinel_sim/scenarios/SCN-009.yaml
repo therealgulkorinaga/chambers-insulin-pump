@@ -1,0 +1,50 @@
+name: SCN-009-emergency-burn
+description: "Patient triggers emergency burn at day 5. All data across worlds and third-party apps burned within 1 hour."
+duration_days: 7
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Adult T1D"
+    age: 28
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: omnipod_5
+    aid_enabled: true
+    seed: 42
+
+third_party_apps:
+  - name: app_fitness
+    app_type: fitness
+    port: 9001
+    compliance: compliant
+    has_sub_processor: false
+  - name: app_clinical
+    app_type: clinical
+    port: 9002
+    compliance: compliant
+
+events:
+  - sim_time_minutes: 0
+    event_type: consent_grant
+    target_patient: P001
+    params:
+      app_name: app_fitness
+  - sim_time_minutes: 0
+    event_type: consent_grant
+    target_patient: P001
+    params:
+      app_name: app_clinical
+  - sim_time_minutes: 7200  # day 5
+    event_type: emergency_burn
+    target_patient: P001
+
+burn_schedule:
+  emergency_burn_minutes: 60
+
+assertions:
+  - burn_completeness
+  - no_data_resurrection
+  - audit_chain_integrity

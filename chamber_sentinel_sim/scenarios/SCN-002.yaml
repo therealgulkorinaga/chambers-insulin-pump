@@ -1,0 +1,30 @@
+name: SCN-002-sensor-transition
+description: "Patient replaces CGM sensor at day 10. Warmup gap, metadata tracking, old sensor data burn."
+duration_days: 14
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    name: "Sensor Transition Patient"
+    age: 32
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 42
+
+events:
+  - sim_time_minutes: 14400  # day 10
+    event_type: sensor_change
+    target_patient: P001
+
+burn_schedule:
+  clinical_review_minutes: 129600
+  device_maintenance_minutes: 14400
+
+assertions:
+  - portable_record_completeness
+  - world_isolation
+  - audit_chain_integrity

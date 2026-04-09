@@ -1,0 +1,77 @@
+name: SCN-015-multi-patient
+description: "100 patients generating data simultaneously for 30 days. Verify burn scheduler handles load."
+duration_days: 30
+acceleration: 1440
+tick_minutes: 5
+seed: 42
+
+patients:
+  - id: P001
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 1
+  - id: P002
+    condition: t1d_adult_poor
+    cgm_model: libre_3
+    pump_model: omnipod_5
+    aid_enabled: true
+    seed: 2
+  - id: P003
+    condition: t2d_adult
+    cgm_model: guardian_4
+    pump_model: minimed_780g
+    aid_enabled: true
+    seed: 3
+  - id: P004
+    condition: t1d_child
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 4
+  - id: P005
+    condition: wellness
+    cgm_model: dexcom_g7
+    aid_enabled: false
+    seed: 5
+  - id: P006
+    condition: t1d_adolescent
+    cgm_model: dexcom_g7
+    pump_model: omnipod_5
+    aid_enabled: true
+    seed: 6
+  - id: P007
+    condition: gestational
+    cgm_model: libre_3
+    aid_enabled: false
+    seed: 7
+  - id: P008
+    condition: t2d_elderly
+    cgm_model: guardian_4
+    aid_enabled: false
+    pen_model: novopen_6
+    seed: 8
+  - id: P009
+    condition: t1d_adult_good
+    cgm_model: dexcom_g7
+    pump_model: tandem_tslim_x2
+    aid_enabled: true
+    seed: 9
+  - id: P010
+    condition: t1d_adult_poor
+    cgm_model: libre_3
+    pump_model: omnipod_5
+    aid_enabled: true
+    seed: 10
+
+burn_schedule:
+  clinical_review_minutes: 43200  # 30 days (shorter for test)
+  device_maintenance_minutes: 14400
+
+assertions:
+  - burn_completeness
+  - portable_record_completeness
+  - no_data_resurrection
+  - world_isolation
+  - audit_chain_integrity
